@@ -3,7 +3,6 @@ using UnityEngine;
 
 public static class ScreenUtils
 {
-    #region Fields
 
     // saved to support resolution changes
     static int screenWidth;
@@ -41,20 +40,23 @@ public static class ScreenUtils
         get  { return screenBottom; }
 
     }
-    public static void Initialize() {
-    
-    screenWidth = Screen.width;
-    screenHeight = Screen.height;
 
-    float screenZ = -Camera.main.transform.position.z;
-    Vector3 bottonLeftCorner = Camera.main.ScreenToWorldPoint(new Vector3(0,0,screenZ));
-    Vector3 topRightCorner = Camera.main.ScreenToWorldPoint(new Vector3 (screenWidth, screenHeight,screenZ));
-  
-    screenLeft = bottonLeftCorner.x;
-    screenRight = topRightCorner.x;
-    screenBottom = bottonLeftCorner.y;
-    screenTop = topRightCorner.y;
+   public static void Initialize()
+    {
+        screenWidth = UnityEngine.Device.Screen.width;
+        screenHeight = UnityEngine.Device.Screen.height;
+
+        float screenZ = Camera.main.transform.position.z;
+
+        Vector3 lowerleftCornerScreen = new Vector3(0, 0, screenZ);
+        Vector3 LowerleftCornerWorld = Camera.main.ScreenToWorldPoint(lowerleftCornerScreen);
+        Vector3 toprightCornerScreen = new Vector3(screenWidth, screenHeight, screenZ);
+        Vector3 toprightCornerWorld = Camera.main.ScreenToWorldPoint(toprightCornerScreen);
+        screenLeft = LowerleftCornerWorld.x;
+        screenRight = toprightCornerWorld.x;
+        screenTop = toprightCornerWorld.y;
+        screenBottom = LowerleftCornerWorld.y;
+        Debug.Log("============Init " + screenLeft + " " + screenRight + " " + screenTop + " " + screenBottom);
+    }
 }
 
-#endregion
-}

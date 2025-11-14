@@ -83,9 +83,9 @@ public class Ship : MonoBehaviour
 
         }
 
-        else if (position.x > screenTop)
+        else if (position.y > screenTop)
         {
-            position.x = screenBottom - colliderRadius;
+            position.y = screenBottom - colliderRadius;
 
             
         }
