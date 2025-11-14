@@ -6,6 +6,7 @@ public class FishCollector : MonoBehaviour
     public GameObject fish; //public so you can attach the prefab
 
     public List<GameObject> fishList= new List<GameObject>();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -37,7 +38,7 @@ public class FishCollector : MonoBehaviour
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
 
-        //create aFish from the prefab
+        //create aFish from the prefab at the position clicked
         GameObject aFish =Instantiate<GameObject>(fish);
 
 
@@ -45,6 +46,29 @@ public class FishCollector : MonoBehaviour
         
         //add it to the list
         fishList.Add(aFish);
+
+    }
+
+
+    public GameObject GetNextFish()
+    {
+        if(fishList.Count > 0)
+        {
+            return fishList[0];
+            //because you want to return the first fish that was put on the list
+
+        }
+        return null;
+
+    }
+
+
+    public void RemoveFish(GameObject fish)
+    {
+
+        fishList.Remove(fish);
+        //delete fish from the scene
+        Destroy(fish);
 
     }
 }
