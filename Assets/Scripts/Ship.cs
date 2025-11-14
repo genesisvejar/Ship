@@ -1,4 +1,5 @@
 using Unity.Burst.CompilerServices;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -78,13 +79,13 @@ public class Ship : MonoBehaviour
 
         if (position.y < screenBottom)
         {
-            position.y = screenBottom + colliderRadius;
+            position.y = screenTop + colliderRadius;
 
         }
 
         else if (position.x > screenTop)
         {
-            position.x = screenTop - colliderRadius;
+            position.x = screenBottom - colliderRadius;
 
             
         }
@@ -110,6 +111,18 @@ public class Ship : MonoBehaviour
             }
 
         transform.Rotate(Vector3.forward, rotationAmount);
+
+        //rotation happens on the z axis because we are in a 2d game
+        float angleInDegrees = transform.eulerAngles.z;
+
+        //you need to convert the angles from degrees to radians because you're using trig formulas
+
+        float angleInRadiants =angleInDegrees * Mathf.Deg2Rad;
+        
+        //these values are used on the thrustDirection on the fixedUpdate function
+        thrustDirection.x = Mathf.Cos(angleInRadiants);
+
+        thrustDirection.y =Mathf.Sin(angleInRadiants);
 
         }
     }
