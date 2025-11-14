@@ -20,6 +20,8 @@ public class Ship : MonoBehaviour
 
     private float screenBottom;
 
+    private const float RotateDegreesPerSecond = 15f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -92,6 +94,23 @@ public class Ship : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        float rotationInput = Input.GetAxis("Rotate");
+        // calculate rotation amount and apply rotation
+
+
+        //this was added so the ship rotates only when one of the keys are pressed
+        if (rotationInput!=0)
         
+        {
+
+        float rotationAmount = RotateDegreesPerSecond * Time.deltaTime;
+            if (rotationInput < 0) {
+            rotationAmount *= -1;
+            }
+
+        transform.Rotate(Vector3.forward, rotationAmount);
+
+        }
     }
 }
